@@ -1,0 +1,520 @@
+% ===============================================================
+% PHYSICS PROBLEM-TYPE CHEAT-SHEET — BLANK TEMPLATE
+% Landscape, 6-column, ultra-condensed layout for Overleaf
+% ===============================================================
+\documentclass[landscape,0.4pt]{article}
+
+% ––––– packages –––––
+\usepackage[margin=0.2in]{geometry}  % tight margins
+\usepackage{multicol}                % column layout
+
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}               % better kerning
+\usepackage{helvet}          % Helvetica (TeX Gyre Heros) for text
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{sansmath}
+\pagestyle{empty}
+
+% ––––– spacing tweaks –––––
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\columnsep}{3pt}
+\linespread{1}                    % slightly tighter line spacing
+
+% ––––– document –––––
+\begin{document}\tiny% globally small font
+\begin{multicols*}{6}
+
+
+% === SECTION FORMAT ============================================
+% Each Section lists canonical problem “scaffolds” for that topic.
+%   • Start with a terse natural-language cue (≤ 1 line)
+%   • Follow with the minimal algebraic chain needed to solve.
+%   • No subsections; keep each item separated by a small vspace.
+% Example (delete once filled):
+%   \textbf{\tiny{Stunt plane inverted loop} — $F_c = F_g + F_N$,\ $F_c = m v^2/r \Rightarrow F_N = m v^2/r - m g$
+% ===============================================================
+\section*{\small{Intro to Probability}}
+\vspace{3pt}
+\textbf{\tiny{MUTATIONS IN FRUIT FLIES}} — Addition \& Complements.  Apply inclusion–exclusion to get the union, subtract for exclusive wing, then complement for neither.\\
+1) Data:\;$P(W)=0.05,\;P(E)=0.10,\;P(W\cap E)=0.02$\\
+2) At least one:\;$P(W\cup E)=P(W)+P(E)-P(W\cap E)=0.13$\\
+3) Wing only:\;$P(W\cap E')=0.05-0.02=0.03$\\
+4) Neither:\;$P((W\cup E)')=1-0.13=0.87$\\[-2pt]
+
+\textbf{\tiny{RADIATION \& FISH MORTALITY}} — Multiplication Rule.  Joint probability equals conditional death rate given exposure times exposure rate.\\
+1) Inputs:\;$P(D|E)=0.85,\;P(E)=0.0001$\\
+2) Joint:\;$P(E\cap D)=0.85\times0.0001=8.5{\times}10^{-5}$\\[-2pt]
+
+\textbf{\tiny{RIVER TOXICITY}} — Inclusion–Exclusion; Conditional; Total Prob.  First find $P(M\cap L)$, then $P(L|M)$, then partition on $M$ to compute arsenic.\\
+1) $P(M\cap L)=0.32+0.16-0.38=0.10$\\
+2) $P(L|M)=0.10/0.32=0.3125$\\
+3) $P(M\cap A)=0.45\cdot0.32=0.144$\\
+4) $P(A)=0.144+0.02\,(1-0.32)=0.1576$\\[-2pt]
+
+\textbf{\tiny{TB SCREENING BY ETHNICITY}} — Total Prob.; Bayes.  Sum positives across groups, then invert with Bayes to find $P(C|T)$.\\
+1) $P(T)=0.01\cdot0.5+0.005\cdot0.3+0.02\cdot0.2=0.0105$\\
+2) $P(C|T)=\dfrac{0.02\cdot0.2}{0.0105}\approx0.381$\\[-2pt]
+
+\textbf{\tiny{IMPERFECT TB TEST}} — Bayes; PPV.  Use sensitivity/specificity to get $P(+)$, then Bayes for $P(D|+)$.\\
+1) $P(+|D)=0.95,\;P(+|D')=0.01$\\
+2) $P(+)=0.95\cdot0.10+0.01\cdot0.90=0.104$\\
+3) $P(D|+)=0.95\cdot0.10/0.104\approx0.913$\\
+\\
+
+\textbf{\tiny{SNAKE-BITE Independent Conditional Prob.}} — Binomial Indep.; Complements.  Treat the three bites as independent and take the complement of the “all die’’ event.\\
+1) Individual death $p=\tfrac{2}{105}$, so survival $q=\tfrac{103}{105}$.\\
+2) All die $P(D^3)=p^3=(\tfrac{2}{105})^3$.\\
+3) At least one survives $=1-p^3\approx0.999993$.\\[-2pt]
+
+\textbf{\tiny{SAMPLING WITHOUT REPLACEMENT}} — Hypergeometric; Independence Test.  Check if the biology outcome for the 2nd draw changes once the 1st is biology.\\
+1) Unconditional $P(B_2)=\frac{5}{12}$ \,(total-prob.: $\frac{5}{12}\!\cdot\!\frac{4}{11}+\frac{7}{12}\!\cdot\!\frac{5}{11}$).\\
+2) Conditional $P(B_2|B_1)=\frac{4}{11}$.\\
+3) Since $\frac{4}{11}\ne\frac{5}{12}$, events $B_1$ and $B_2$ are \emph{not} independent.\\
+\vspace{3pt}
+
+% =====================================================
+% DISCRETE RANDOM VARIABLES
+% =====================================================
+
+\textbf{\tiny{BLACK-BEAR CUBS}} — c.d.f.\ $\Rightarrow$ p.m.f.; mean/SD.  
+(a) The c.d.f. reaches $1$ at $6$, so $R_X=\{1,\dots,6\}$.\\
+(b) Forward differences convert $F(x)$ to $f(x)$: $0.20,0.40,0.28,0.07,0.04,0.01$.\\
+(c) Use $F$ for intervals then verify with $f$:  
+$P(X=3)=0.28,\;P(3\le X\le5)=0.99-0.60=0.39,\;P(3<X\le5)=0.99-0.88=0.11,\;P(X>5)=1-0.99=0.01$.\\
+(d) Compute moment sums: $\mu=\sum x f(x)=2.38,\;\sigma=\sqrt{\sum (x-\mu)^2f(x)}\approx1.07$.\\[-2pt]
+
+% =====================================================
+% BINOMIAL — DEFINITIONS & IDENTIFICATION
+% =====================================================
+
+\textbf{\tiny{BINOMIAL DISTRIBUTION}} — Bernoulli trials, parameters $(n,p)$.  
+A Bernoulli trial has two outcomes (success prob.\ $p$).  $n$ independent identical trials give $X\sim B(n,p)$ with  
+$\mathbb E[X]=np,\;\sigma=\sqrt{np(1-p)},\;P(X=x)=\binom{n}{x}p^x(1-p)^{n-x}$.  
+\textit{Spot binomial problems by fixed $n$, constant $p$, two outcomes, independence.}\\[-2pt]
+
+\textbf{\tiny{TETANUS FATALITIES}} — $X\sim B(3,0.7)$ (death = success).  
+(a) Expectation is $np=3(0.7)=2.1$ deaths.\\
+(b) Variation uses $\sigma=\sqrt{np(1-p)}\approx0.79$.\\
+(c) “At most 1’’ means $P(X\le1)=\binom31(0.7)^1(0.3)^2+0.3^3=0.216$.\\[-2pt]
+
+\textbf{\tiny{CANADIAN ALOPECIA}} — Large-$n$ binomial $(n=2500,p=0.01)$.  
+(a) Mean count $=np=25$.\\
+(b) Spread $\sigma=\sqrt{25\cdot0.99}\approx4.97$.\\
+(c) Exact window via sum of three binomial terms $\approx0.2367$.\\
+(d) c.d.f.\ check: (i) $F(26)-F(23)=0.6298-0.3931=0.2367$; (ii) $F(21)=0.2461$.\\[-2pt]
+
+% =====================================================
+% CONTINUOUS / NORMAL
+% =====================================================
+
+\textbf{\tiny{STANDARD NORMAL TABLE USE}} — Convert bounds to $\Phi$.  
+(a) Area between: $\Phi(2.06)-\Phi(0.53)=0.2784$.\\
+(b) Central band: $\Phi(0.53)-\Phi(-2.63)=0.6976$.\\
+(c) Two-tail: $\Phi(-0.5)+1-\Phi(2.5)=0.3147$.\\
+(d) 90th-percentile $c=\Phi^{-1}(0.90)=1.28$.\\
+(e) 1st-percentile $c=\Phi^{-1}(0.01)=-2.33$.\\[-2pt]
+
+\textbf{\tiny{DIABETIC GLUCOSE LEVELS}} — $X\sim N(106,8^2)$; use $Z=(X-\mu)/\sigma$.  
+(a) Standardise 90 to 120 ($z=-2,1.75$): probability $0.9599-0.0228=0.937$.\\
+(b) Lower quartile $z=-0.674$: $x=106-0.674(8)\approx100.6$.\\
+(c) Upper quartile $z=0.674$: $x=106+0.674(8)\approx111.4$.\\
+(d) Let $p=0.937$ from part (a); with $Y\sim B(5,p)$, $P(Y\le1)=\bigl(0.063\bigr)^5+5(0.937)(0.063)^4\approx7.4{\times}10^{-5}$.\\[-2pt]
+\vspace{-6pt}
+\section*{\tiny{R Code examples}}
+\vspace{-6pt}
+% =====================================================
+% R-BASED COMPUTATIONS
+% =====================================================
+
+\textbf{\tiny{BINOMIAL PROBABILITIES IN R}} — $X\sim B(10,0.4)$; use \texttt{dbinom} for a point‐mass and \texttt{pbinom} for c.d.f.\\
+(a) One pmf call gives the exact likelihood of four successes: $P(X=4)=0.2508$;\;%
+\texttt{dbinom(4,10,0.4)} $\rightarrow$ 0.2508227.\\
+(b) “At least four’’ is the complement of $P(X\le3)$: $P(X\ge4)=0.6177$;\;%
+\texttt{1-pbinom(3,10,0.4)} $\rightarrow$ 0.6177194.\\
+(c) The open interval $2<X<8$ equals $F(7)-F(2)$: $0.8204$;\;%
+\texttt{pbinom(7,10,0.4)-pbinom(2,10,0.4)} $\rightarrow$ 0.8204157.\\[-2pt]
+
+\textbf{\tiny{NORMAL PROBABILITIES IN R}} — $X\sim N(25,2.75^{2})$; evaluate with \texttt{pnorm} and invert with \texttt{qnorm}.\\
+(a) Cumulative below 27: $P(X<27)=F_X(27)=0.7665$;\;%
+\texttt{pnorm(27,25,2.75)} $\rightarrow$ 0.7664705.\\
+(b) Right-tail above 28: $P(X>28)=1-F_X(28)=0.1377$;\;%
+\texttt{1-pnorm(28,25,2.75)} $\rightarrow$ 0.1376564.\\
+(c) Central band uses two c.d.f. calls: $P(23<X<27)=F_X(27)-F_X(23)=0.5329$;\;%
+\texttt{pnorm(27,25,2.75)-pnorm(23,25,2.75)} $\rightarrow$ 0.5329411.\\
+(d) Find $c$ with upper tail $0.05$: solve $F_X(c)=0.95$, giving $c=29.52335$;\;%
+\texttt{qnorm(0.95,25,2.75)} $\rightarrow$ 29.52335.\\
+(e) Lower quartile comes from $F_X(c)=0.25$: $c=23.14515$;\;%
+\texttt{qnorm(0.25,25,2.75)} $\rightarrow$ 23.14515.\\[-2pt]
+
+
+% ===============================================================
+
+\section*{\small{}}
+% =====================================================
+% DESCRIPTIVE-STATISTICS FORMULAS (purpose in italics)
+% =====================================================
+
+\textbf{\tiny{CORE FORMULAS}} — \textit{centre \& spread}.\\
+Mean (average): $(\bar{x}=\frac1n\sum x_i)$.\\
+Median (50th pct): value with $50\%$ below.\\
+Variance (unbiased spread): $(s^{2}=\frac{\sum(x_i-\bar{x})^{2}}{n-1})$.\\
+Std.\ dev.\ (dispersion): $(s=\sqrt{s^{2}})$.\\
+Range (total spread): $(R=x_{\max}-x_{\min})$.\\
+Quartile rank: $r=(n+1)p$, interpolate between $y_{\lfloor r\rfloor},y_{\lceil r\rceil}$.\\
+Outlier fences: $Q_{1}-1.5\,\text{IQR},\;Q_{3}+1.5\,\text{IQR}$.\\[-2pt]
+
+% =====================================================
+% RADISH-GROWTH EXAMPLE (n = 10)
+% =====================================================
+
+\textbf{\tiny{RADISH GROWTH}} — Descriptive stats; uses mean, $(s)$, quartiles, IQR-outlier rule.  
+Goal: verify $s$, $Q_{1}$, $Q_{3}$, then flag outliers.  Steps follow the textbook order-statistic method.
+
+1)\;Compute $\bar{x}$ to anchor all spread measures.\\
+\hspace*{1em}$(\bar{x}=24.8\text{ mm})$ from $\sum x_i=248$.\\
+
+2)\;Find squared deviations and variance with Bessel’s correction.\\
+\hspace*{1em}$(\sum(x_i-\bar{x})^{2}=2857.6)$; $(s^{2}=2857.6/9=317.51)$.\\
+
+3)\;Take the square-root to obtain the sample standard deviation.\\
+\hspace*{1em}$(s=\sqrt{317.51}=17.81884\text{ mm})$.\\
+
+4)\;Rank data and locate quartiles via $(n+1)p$ interpolation.\\
+\hspace*{1em}$r_{.25}=2.75\Rightarrow Q_{1}=16+0.75(18-16)=17.5\text{ mm}$.\\
+\hspace*{1em}$r_{.75}=8.25\Rightarrow Q_{3}=22+0.25(23-22)=22.25\text{ mm}$.\\
+
+5)\;Derive IQR and outlier fences to test extremities.\\
+\hspace*{1em}$(\text{IQR}=22.25-17.5=4.75)$;\\
+\hspace*{1em}Lower fence $=17.5-1.5(4.75)=10.38$;\\
+\hspace*{1em}Upper fence $=22.25+1.5(4.75)=29.38$.\\
+
+6)\;Compare sample extremes with fences to isolate outliers.\\
+\hspace*{1em}Only $75\text{ mm}>29.38$, thus $75\text{ mm}$ is the single outlier.\\[-2pt]
+
+\textbf{\tiny{PART (a) VERIFY $s$}} — Goal: confirm dispersion via $s$.  
+Approach: recompute $\bar{x}$, variance, then take root.\\
+Mean $(24.8)$; variance $(317.51)$; standard deviation $(17.81884)$ matches.\\
+
+\textbf{\tiny{PART (b) VERIFY $Q_{1},Q_{3}$}} — Goal: check quartiles.  
+Approach: apply rank formula with interpolation.\\
+$Q_{1}=17.5\text{ mm}$; $Q_{3}=22.25\text{ mm}$ as above.\\
+
+\textbf{\tiny{PART (c) OUTLIER TEST}} — Goal: flag atypical values.  
+Approach: use $1.5\,\text{IQR}$ fences.\\
+Upper fence $29.38$; only $75\text{ mm}$ exceeds → identified as outlier.\\[-2pt]
+
+
+% ===============================================================
+\section*{\small{Descriptive Stats
+}}
+% =====================================================
+% TRANSFORMATION TOOLKIT  —  when & why
+% =====================================================
+
+\textbf{\tiny{LINEAR COMBINATION}} — use when data are rescaled: $y_i=a\,x_i+b$.  
+\textit{Formula chain:} Mean $(\bar{y}=a\bar{x}+b)$ $\rightarrow$ Variance $(s_y^{2}=a^{2}s_x^{2})$ $\rightarrow$ SD $(s_y=|a|s_x)$.  
+
+\textbf{\tiny{LOG TRANSFORM}} — tame right–skewed, strictly positive data.  
+Geometric mean $(g=e^{\bar{y}})$, Geometric SD $(\text{GSD}=e^{s_y})$,  
+1-SD log interval $(\bar{y}\!\pm\!s_y)$ maps back to months via $(e^{\bar{y}-s_y},e^{\bar{y}+s_y})$.  
+
+\textbf{\tiny{STANDARDISE TO $Z$}} — probabilities read from $N(0,1)$ table, never integrated.  
+$Z=\dfrac{X-\mu}{\sigma}$, then look up $\Phi(z)$.
+
+% =====================================================
+% EXAMPLE 29  —  SURVIVAL TIMES WITH A LOG TRANSFORM
+% =====================================================
+
+\textbf{\tiny{SURVIVAL – GEOMETRIC ANALYSIS}} — log transform, back-transform; geometric mean \& SD.  
+\textit{Problem:} Log-times $(y=\ln x)$ are symmetric, so mean ± SD in log-space is meaningful; we must convert those summaries back to months.
+
+% ---------- GIVEN DATA -----------------------------------------------------
+Given: $\bar{y}=2.265904$, $s_y=1.030572$,  $\bar{x}=16.244$, $s_x=21.456$ (months).
+
+% ---------- PART (a)  —  COMPUTE g AND GSD ---------------------------------
+\textbf{\tiny{(a) Geometric mean $g$ and geometric SD}}  
+ exponentiate the log-mean to obtain $g$ (typical multiplicative centre) and exponentiate $s_y$ to obtain the dimensionless spread factor GSD.
+
+(starting formula)  $g=e^{\bar{y}}$.  
+ (compute) $(g=e^{2.265904}=9.64\text{ months})$.  
+
+Step 3 (starting formula)  $\text{GSD}=e^{s_y}$.  
+Step 4 (compute) $(\text{GSD}=e^{1.030572}=2.80)$.  
+
+% ---------- PART (b)  —  ONE-SD LOG INTERVAL --------------------------------
+\textbf{\tiny{(b) One-SD interval in log-months}}  
+ capture a “typical’’ central band on the log scale using $\bar{y}\pm s_y$.
+
+(interval formula) $(\bar{y}-s_y,\;\bar{y}+s_y)$.  
+ (compute ends) $(1.235332,\;3.296476)$ log-months.  
+
+% ---------- PART (c)  —  CONVERT INTERVAL TO MONTHS -------------------------
+\textbf{\tiny{(c) Back-transform to months}}  
+ exponentiate each endpoint; interpret as $g$ multiplied or divided by GSD.
+
+(back-transform) lower $=e^{1.235332}=3.44\text{ months}$, upper $=e^{3.296476}=27.00\text{ months}$.  
+ (check multiplicative form) $(g/\text{GSD},\;g\!\times\!\text{GSD})=(9.64/2.80,\;9.64\times2.80)=(3.44,27.0)\text{ months}$.  
+
+Result: a “typical’’ survival time lies between $3.4$ and $27$ months (about 68\% of cases on the log scale).  
+
+
+
+% ===============================================================
+\section*{\small{Sampling Distributions}}
+% =====================================================
+% SAMPLING-DISTRIBUTION TOOLBOX
+% =====================================================
+
+\textbf{\tiny{KEY FORMULAS \& IDEAS}} — \textit{links population to sample}.\\
+Sample mean: $(\bar{X}=\tfrac1n\sum_{i=1}^n X_i)$, centre of a random sample.\\
+Mean/variance of $\bar{X}$: $(E[\bar{X}]=\mu)$, $(V[\bar{X}]=\sigma^{2}/n)$; SD of $\bar{X}$: $(\sigma_{\bar{X}}=\sigma/\sqrt{n})$.\\
+Standard-normal pivot: $(Z=\tfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}\sim N(0,1)$ if population normal or $n\ge30)$.\\
+Central Limit Theorem: for large $n$, the distribution of $\bar{X}$ is approximately normal regardless of population shape.\\
+Linear expectation: $(E[a_1X_1+\dots+a_nX_n]=\sum a_i\mu)$ and, with independence, $(V=\sum a_i^{2}\sigma^{2})$.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 31 — URIC ACID IN MEN
+% =====================================================
+
+\textbf{\tiny{URIC-ACID SAMPLE MEAN}} — Normal sampling distribution; $Z$-transform.  
+Healthy men’s uric-acid levels follow a normal law, so any average of nine such observations is itself normal.  
+We know the parent mean $(\mu=5.7)$ and SD $(\sigma=1)$, hence $\sigma_{\bar{X}}$ can be found by dividing by $\sqrt{n}$.  
+The task is to convert the interval $[5,6]$ on the sample-mean scale into a standard-normal interval and read the corresponding probability from the $Z$-table.  
+This showcases the direct bridge from population parameters to the behaviour of a statistic.
+
+(1) Compute sampling SD: $(\sigma_{\bar{X}}=\sigma/\sqrt{9}=1/3=0.333)$.\\
+(2) Transform bounds to $Z$: lower $(z_1=(5-5.7)/0.333=-2.10)$, upper $(z_2=(6-5.7)/0.333=0.90)$.\\
+(3) Table lookup: $(\Phi(0.90)=0.816,\;\Phi(-2.10)=0.018)$.\\
+(4) Probability: $(P=0.816-0.018=0.798)$.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 32 — SODIUM INTAKE FOR SENIORS
+% =====================================================
+
+\textbf{\tiny{AVERAGE SODIUM INTAKE}} — CLT approximation; tail probability of $\bar{X}$.  
+Daily sodium consumption in seniors is skewed but, with a sample of $n=75$, the Central Limit Theorem legitimises the normal model for the sample mean.  
+We translate the “more than 3100mg’’ question into a $Z$-score using the population SD and sample size, then extract the tail area from the standard-normal table.  
+The result quantifies how unusual such a high average would be if the population guidelines hold.  
+This illustrates how large-sample theory frees us from strict normality assumptions.
+
+(1) Sampling SD: $(\sigma_{\bar{X}}=\tfrac{1476}{\sqrt{75}}\approx170.5)$.\\
+(2) $Z$-score for $3100$mg: $(z=(3100-2940)/170.5\approx0.939)$.\\
+(3) Right-tail area: $(P=\;1-\Phi(0.939)=1-0.826\approx0.174)$.\\
+(4) Interpretation: there is about a $17\%$ chance the sample average exceeds $3100$mg under the stated population parameters.\\[-2pt]
+
+
+% ===============================================================
+\section*{\small{Confidence Intervals}}
+
+% =====================================================
+% CONFIDENCE-INTERVAL & SAMPLE-SIZE BASICS
+% =====================================================
+
+\textbf{\tiny{MAIN EQUATIONS}} — \textit{estimate means with stated precision}.\\
+Known $\sigma$: $(\bar{X}\pm z_{\alpha/2}\,\sigma/\sqrt{n})$ gives a $100(1-\alpha)\%$ CI for $\mu$.\\
+Unknown $\sigma$: $(\bar{X}\pm t_{\alpha/2,n-1}\,s/\sqrt{n})$, where $T$ has $\nu=n-1$ d.f.\\
+Standard error of the mean: $(\text{SE}=s/\sqrt{n})$ or $(\sigma/\sqrt{n})$ when $\sigma$ known.\\
+Required $n$ for half-width $E$: $(n\ge(z_{\alpha/2}\sigma/E)^{2})$; round up.\\
+Student–$t$: centred at $0$, spread $\sqrt{\nu/(\nu-2)}$, converges to $N(0,1)$ as $\nu\to\infty$.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 36 — CRICKET SONG DURATION
+% =====================================================
+
+\textbf{\tiny{UNSUCCESSFUL-SONG LENGTH}} — $t$-interval for mean with sample SD.  
+The sample of $51$ songs is assumed to come from a normal population, but the population SD is unknown, so the Student $t$ distribution governs the sampling error.  
+Confidence limits are formed by scaling the sample standard deviation by the critical $t$ quantile and the square root of $n$.  
+Comparing intervals at two confidence levels illustrates the trade-off between certainty and precision, since a higher confidence requires a wider band.  
+All calculations use $s=4.4326$ min and $\text{SE}=s/\sqrt{51}$.
+
+(a) 95 \% CI uses $t_{0.025,50}\approx2.009$ to bound the mean.\\
+$\text{SE}=4.4326/\sqrt{51}=0.6204$, margin $=2.009(0.6204)=1.246$,\\
+interval $\bigl(4.335-1.246,\;4.335+1.246\bigr)=(3.089,\,5.581)\text{ min}$.\\
+
+(b) 97\% CI uses $t_{0.015,50}\approx2.433$ for greater confidence.\\
+Margin $=2.433(0.6204)=1.510$, interval $\bigl(2.825,\,5.845\bigr)\text{ min}$.\\
+
+(c) Interval length grows with confidence.\\
+95\% width $=2(1.246)=2.492$ min; 97\% width $=2(1.510)=3.020$ min,\\
+so the 97\% band is roughly $21\%$ longer, reflecting added certainty.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 37 — FASTING GLUCOSE SAMPLE SIZE
+% =====================================================
+
+\textbf{\tiny{REQUIRED $n$ FOR MEAN GLUCOSE}} — normal CI width with known $\sigma$.  
+To guarantee the estimate of the population mean is within $\pm5$ mg/dL 95 % of the time, we convert the allowable error into a standard-normal half-width.  
+Because the population SD $(\sigma=15)$ is known and the target error $(E=5)$ is fixed, the sample size must satisfy the inequality derived from the CI formula.  
+Rounding up the arithmetic result ensures the promised accuracy is met or exceeded.
+
+Desired half-width condition: $(n\ge(z_{0.025}\sigma/E)^{2})$.\\
+Insert numbers: $(z_{0.025}=1.96)$, $(\sigma=15)$, $(E=5)$, so\\
+$n\ge(1.96\cdot15/5)^{2}=(5.88)^{2}=34.6$.\\
+Round up: choose $(n=35)$ subjects to keep the error $\le5$ mg/dL with 95\% confidence.\\[-2pt]
+
+% ===============================================================
+\section*{\small{Hypothesis Testing}}
+% =====================================================
+% HYPOTHESIS-TESTING TOOLBOX
+% =====================================================
+
+\textbf{\tiny{CORE CONCEPTS}} — \textit{decide between competing claims about a population}.\\
+Null hypothesis: $(H_{0}:\;\theta=\theta_{0})$ states “no change / no effect”.\\
+Alternative hypotheses: two-sided $(H_{1}:\theta\neq\theta_{0})$, left $(\theta<\theta_{0})$, right $(\theta>\theta_{0})$.\\
+Test statistic maps sample to a single number; decision rule compares it to a critical region.\\
+Type I error: reject true $H_{0}$ (probability $=\alpha$); Type II error: fail to reject false $H_{0}$ (probability $=\beta$).\\
+$p$-value: smallest $\alpha$ at which $H_{0}$ would be rejected.  One-tailed tests use a single critical region; two-tailed split $\alpha$.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 38 — PLANT-HEIGHT COMPARISON
+% =====================================================
+
+\textbf{\tiny{NEW VS OLD TREATMENT HEIGHT}} — Formulating directional and opposite tests.  
+Investigators claim the new treatment raises mean plant height beyond the historical 20 cm benchmark, so we must encode that directional belief in $H_{1}$ while the status-quo sits in $H_{0}$.  If critics instead expect shorter plants, their alternative reverses the inequality.  No data are yet collected; proper wording now prevents later “data-snooping’’ bias.
+
+(i)\;Investigators’ claim (“taller”):\\
+\hspace*{1em}$H_{0}:\mu=20\text{ cm}$,\;\;$H_{1}:\mu>20\text{ cm}$\;(right-tailed).\\
+
+(ii)\;Opposite suspicion (“smaller”):\\
+\hspace*{1em}$H_{0}:\mu=20\text{ cm}$,\;\;$H_{1}:\mu<20\text{ cm}$\;(left-tailed).\\[-2pt]
+
+% =====================================================
+% EXAMPLE 39 — PEA-PLANT COLOUR PROPORTION
+% =====================================================
+
+\textbf{\tiny{YELLOW OFFSPRING RATIO}} — Proportion test, goodness-of-fit.  
+Classical Mendelian genetics predicts 25 % yellow seeds from a Cc × Cc cross.  We phrase this predicted ratio as our null hypothesis, while deviations in either direction form the composite alternative.  A future chi-square or exact binomial test would evaluate the fit.
+
+Step 1 — set hypotheses:\\
+\hspace*{1em}$H_{0}:p=0.25$,\;\;$H_{1}:p\neq0.25$ (two-tailed).\\
+Step 2 — choose significance $\alpha$ and collect seed counts; compute test statistic such as $(\chi^{2}=\sum\frac{(O-E)^{2}}{E})$ or $(Z=\frac{\hat{p}-0.25}{\sqrt{0.25(0.75)/n}})$.\\
+Step 3 — compare to critical value or $p$-value; decide.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 40 — PAIRED PAIN SCORES WITH METHADONE
+% =====================================================
+
+\textbf{\tiny{METHADONE ANALGESIC EFFECT}} — Paired-sample $t$ framework, error types.  
+A crossover design yields one difference score per patient: $(d_i=\text{Pain}_{\text{methadone}}-\text{Pain}_{\text{placebo}})$.  If methadone truly reduces pain, the population mean difference should be negative.  We therefore cast a right-sized null of “no change’’ against a left-tailed alternative, apply a one-sample $t$ on the 28 differences, and interpret errors in plain language.
+
+(a)\;Hypotheses for pain reduction:\\
+\hspace*{1em}$H_{0}:\mu_{d}=0$ (no mean pain change)\\
+\hspace*{1em}$H_{1}:\mu_{d}<0$ (mean pain lower with methadone)\\
+\hspace*{1em}Test statistic: $(t=\frac{\bar{d}-0}{s_{d}/\sqrt{28}})$ with $\nu=27$.\\
+
+(b)\;Error interpretations:\\
+\hspace*{1em}\textit{Type I error} — we conclude methadone reduces pain when in fact it does not; patients might receive an ineffective opioid and endure unnecessary side-effects.\\
+\hspace*{1em}\textit{Type II error} — we fail to detect a real analgesic benefit; methadone’s useful therapy is overlooked and patients continue with less effective treatment.\\[-2pt]
+
+% -----------------------------------------------------
+% % Citations retained only in comments to satisfy research-traceability
+% % Null hypothesis defs: turn0search0, turn0search3, turn0search7
+% % Type I/II error refs: turn0search1, turn0search5, turn0search9, turn0search12
+% % One-tailed concept: turn0news43
+% % Paired methadone example context: turn0search2, turn0search10
+% % Fisher historical note: turn0news44
+% =====================================================
+% =====================================================
+% SIGNIFICANCE & p-VALUE TOOLKIT
+% =====================================================
+
+\textbf{\tiny{MEASURING STRENGTH OF EVIDENCE}} — \textit{translate a test statistic into a probability}.\\
+Right-tail p-value: $(p=\Pr(Z\ge z_0)=1-\Phi(z_0))$ or $(p=\Pr(T_{\nu}\ge t_0))$.\\
+Decision rule: reject $H_{0}$ at level $\alpha$ only when $(p\le\alpha)$.\\
+Test statistic (mean, $\sigma$ known): $(Z_0=(\bar{X}-\mu_0)/(\sigma/\sqrt{n}))$.\\
+Type II error $(\beta)$ for true mean $\mu_1$: $(\beta=\Phi(z_\alpha-\delta))$ with $(\delta=\sqrt{n}(\mu_1-\mu_0)/\sigma)$.\\
+Critical value: $(z_\alpha)$ satisfies $\Pr(Z\ge z_\alpha)=\alpha$; analogous $t_{\alpha,\nu}$ when $\sigma$ unknown.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 41 — KNOWN σ RIGHT-TAILED Z TEST
+% =====================================================
+
+\textbf{\tiny{NORMAL MEAN VS BENCHMARK}} — one-sample $Z$, p-value, power.  
+We compare a sample mean to the target $35 mg/dL$ under the assumption of known population spread.  Because both null and alternative are directional, evidence is judged in the upper tail.  After gauging the observed statistic we compute the p-value; then, with a putative true mean of 38, we calculate the probability of a miss ($\beta$) for two sample sizes.
+
+(a)\;Observed $z_0=(38-35)/(17.5/\sqrt{25})=0.857$; p-value $=1-\Phi(0.857)=0.196\;(>\!0.05)$, so evidence is not significant.\\
+(b)\;For $\mu_1=38$ and $n=25$, non-central shift $\delta=0.857$; $\beta=\Phi(1.645-0.857)=\Phi(0.788)=0.784$, thus 78 % chance of failing to detect the real increase.\\
+(c)\;With $n=30$, $\delta=3\sqrt{30}/17.5=0.939$; $\beta=\Phi(1.645-0.939)=\Phi(0.706)=0.760$, a modest power gain but error still high.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 42 — PLANT-HEIGHT $t$ TESTS
+% =====================================================
+
+\textbf{\tiny{EFFECT OF NEW TREATMENT}} — unknown $\sigma$, right-tail one-sample $t$.  
+Plant heights are assessed against the historic 20 cm mean.  Using the same sample mean and SD at two different sample sizes reveals how larger $n$ tightens the standard error and strengthens significance, even with identical point estimates.
+
+(a)\;$n=15$, SE $=5.7/\sqrt{15}=1.47$, $t_0=(23.2-20)/1.47=2.17$; p-value $=\Pr(T_{14}\ge2.17)\approx0.024<0.05$, so we reject $H_{0}$ and conclude the treatment increases height.\\
+(b)\;$n=50$, SE $=5.7/\sqrt{50}=0.806$, $t_0=3.2/0.806=3.97$; p-value $=\Pr(T_{49}\ge3.97)\approx1\times10^{-4}$, yielding even stronger evidence for taller plants.\\[-2pt]
+
+% =====================================================
+% HYPOTHESIS-TESTING FORMULAS & WHEN TO USE THEM
+% =====================================================
+
+\textbf{\tiny{ONE-SAMPLE MEAN, KNOWN $\sigma$}} — right/left: $(Z=\tfrac{\bar{X}-\mu_0}{\sigma/\sqrt{n}})$; two-sided use $|Z|$.  
+\textbf{\tiny{ONE-SAMPLE MEAN, UNKNOWN $\sigma$}} — replace $\sigma$ by $s$ and use $(T_{\nu=n-1})$.  
+\textbf{\tiny{PROPORTION}} — $(Z=\tfrac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}})$; approx valid when $np_0(1-p_0)\!\ge\!10$.  
+\textbf{\tiny{PAIRED DIFFERENCE}} — treat differences $D_i$ as one-sample data, test $(\mu_D)$.  
+
+Critical region (level $\alpha$):  
+\; right-tail: reject if $Z\!\ge\!z_\alpha$ or $T\!\ge\!t_{\alpha,\nu}$.  
+\; left-tail: reject if $Z\!\le\!-z_\alpha$ or $T\!\le\!-t_{\alpha,\nu}$.  
+\; two-tail: reject if $|Z|\!\ge\!z_{\alpha/2}$ or $|T|\!\ge\!t_{\alpha/2,\nu}$.  
+
+$p$-value quantifies “how extreme’’ the observed statistic is under $H_0$:  
+\; one-tail: area beyond $z_0$ (or $t_0$) in the specified tail.  
+\; two-tail: twice the smaller tail area.  
+
+Type I error $(\alpha)$: reject a true $H_0$; Type II $(\beta)$: keep a false $H_0$.  Choose two-tailed tests for “any change”, one-tailed for directional claims.
+
+% =====================================================
+% EXAMPLE 44 — PERMANGANATE REDUCTION (ONE-SAMPLE $t$)
+% =====================================================
+
+\textbf{\tiny{CHECKING A CLEAN-UP PROGRAM}} — $T$ test, left-tail.  
+River concentrations are normally distributed but $\sigma$ unknown, so we use a one-sample $t$ on $(n=25)$ readings.
+
+1) Hypotheses: $(H_0:\mu=500\text{ ppm})$, $(H_1:\mu<500\text{ ppm})$.\\
+2) Test statistic: $(t_0=\tfrac{470-500}{100/\sqrt{25}}=-1.50)$; null sampling distribution $T_{24}$.\\
+3) Critical value at $\alpha=0.05$: $t_{0.05,24}=-1.711$; since $-1.50>-1.711$ do \emph{not} reject $H_0$.\\
+4) p-value: $(P(T_{24}\le-1.50)\approx0.074)$; because $0.074>0.05$ evidence is not significant.\\
+5) If this decision were wrong, we failed to spot a real reduction -- Type II error (missed effect).\\[-2pt]
+
+% =====================================================
+% EXAMPLE 45 — MENDELIAN PROPORTION (TWO-SIDED $Z$)
+% =====================================================
+
+\textbf{\tiny{YELLOW PEA OFFSPRING}} — large-sample proportion test.  
+With $(n=580)$ seedlings, normal approximation applies.
+
+1) Hypotheses: $(H_0:p=0.25)$, $(H_1:p\neq0.25)$ (two-tailed).\\
+2) Estimate: $(\hat{p}=152/580=0.2621)$; SE $(=\sqrt{0.25(0.75)/580}=0.01796)$.\\
+3) Test statistic: $(z_0=\tfrac{0.2621-0.25}{0.01796}=0.673)$.\\
+4) Critical band: $|z_0|<1.96$ -- do not reject; p-value $=2(1-\Phi(0.673))\approx0.50$.\\
+5) Conclusion: data are consistent with Mendel’s 25 \% prediction at the 5 \% level.\\[-2pt]
+
+% =====================================================
+% EXAMPLE 46 — TWO DIETS, PAIRED $t$
+% =====================================================
+
+\textbf{\tiny{STEER WEIGHT GAINS}} — paired differences, two-tailed $t$.  
+Differences $(D_i=X_{1i}-X_{2i})$ remove between-pair variability, giving $n=9$ matched observations.
+
+1) Hypotheses: $(H_0:\mu_D=0)$, $(H_1:\mu_D\neq0)$.\\
+2) Summary: $\bar{d}=22.9$, $s_d=59.3$, SE $(=59.3/\sqrt{9}=19.77)$.\\
+3) Test statistic: $(t_0=\bar{d}/\text{SE}=1.159)$ with $\nu=8$.\\
+4) p-value: $2P(T_8\ge1.159)\approx0.28$; not significant at 5 \%.\\
+5) 95 \% CI: $\bar{d}\pm t_{0.025,8}\text{SE}=22.9\pm2.306(19.77)=(-22.7,68.5)$ lb, which includes $0$ confirming the non-significant test.\\[-2pt]
+
+
+% ===============================================================
+\section*{\small{}}
+
+
+% ===============================================================
+\section*{\small{}}
+
+
+\end{multicols*}
+
+\end{document}
